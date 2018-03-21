@@ -4,7 +4,6 @@ FROM golang:1.10-alpine3.7 AS build
 # We need to run 'docker build --no-cache .` to update those dependencies
 
 RUN apk add --no-cache git
-RUN apk add --no-cache make
 RUN go get github.com/golang/dep/cmd/dep
 RUN go get -u golang.org/x/lint/golint
 
