@@ -19,10 +19,9 @@ pipeline {
     }
     stage('Package') {
       agent {
-        dockerfile {
-          filename 'Dockerfile'
+        docker {
+          image 'dockercore/docker:17.05'
         }
-        
       }
       environment {
         dir = 'build'
@@ -30,8 +29,7 @@ pipeline {
         additionalBuildArgs = '--build-arg version=${VERSION}'
       }
       steps {
-        sh 'apk add --no-cache docker'
-        sh 'docker build .'
+        def customImage = docker.build(go-pipeline-design:0.0.1-${env.BUILD_ID}", -f Dockerfile .")
       }
     }
     stage('Test') {
