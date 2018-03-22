@@ -19,11 +19,13 @@ pipeline {
             sh 'make'
           }
         }
-        stage('Dockerize') {
-          steps {
-            sh 'apk add --no-cache docker'
-            sh 'docker build .'
-          }
+      }
+    }
+    stage('Package') {
+      parallel {
+        steps {
+          sh 'apk add --no-cache docker'
+          sh 'docker build .'
         }
       }
     }
