@@ -26,16 +26,15 @@ pipeline {
     stage('Test') {
       steps {
         sh 'make test'
-        sh 'make test-coverage'
+        sh 'make test-default'
       }
     }
   }
-  
-  // Required to view our test results in the UI
-
   post {
     always {
       junit 'test/test.xml'
+      
     }
+    
   }
 }
