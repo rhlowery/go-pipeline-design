@@ -30,6 +30,7 @@ pipeline {
       }
       steps {
         def customImage = docker.build(go-pipeline-design:0.0.1-${env.BUILD_ID}", "-f Dockerfile .")
+        customImage.push()
       }
     }
     stage('Test') {
