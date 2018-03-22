@@ -41,7 +41,7 @@ pipeline {
     stage('Test') {
       agent {
         docker {
-          image 'go-pipeline-design'
+          image 'rhlowery/go-pipeline-design-scratch'
         }
         
       }
