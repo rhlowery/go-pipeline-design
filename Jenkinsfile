@@ -3,6 +3,9 @@ pipeline {
   environment {
     VERSION = '0.0.1'
   }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+  }
   stages {
     stage('Build') {
       agent {
