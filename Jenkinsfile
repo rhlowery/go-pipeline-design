@@ -21,6 +21,7 @@ pipeline {
         }
         stage('Dockerize') {
           steps {
+            sh 'apk add --no-cache docker'
             sh 'docker build .'
           }
         }
