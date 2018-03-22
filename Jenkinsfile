@@ -1,13 +1,12 @@
 pipeline {
-  agent {
-    docker {
-      image 'golang:1.10.0-alpine3.7'
-      args '-p 7180:80'
-    }
-    
-  }
+  agent none
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'golang:1.10.0-alpine3.7'
+        }
+      }
       steps {
         sh 'apk add --no-cache make'
         sh 'apk add --no-cache git'
@@ -18,12 +17,21 @@ pipeline {
       }
     }
     stage('Package') {
-      steps {
-        sh 'apk add --no-cache docker'
-        sh 'docker build .'
+      agent {
+        dockerfile {
+          filename 'Dockerfile'
+          dir 'build'
+          label 'go-pipeline-design'
+          additionalBuildArgs '--build-arg version=${VERSION}'
+        }
       }
     }
     stage('Test') {
+      agent {
+        docker {
+          image: go-pipeline-design:${VERSION}
+        }
+      }
       steps {
         sh 'make test'
         sh 'mkdir test'
