@@ -19,8 +19,8 @@ pipeline {
     }
     stage('Package') {
       agent {
-        docker {
-          image 'dockercore/docker:17.05'
+        dockerfle {
+          filename 'Dockerfile'
         }
       }
       environment {
@@ -29,8 +29,7 @@ pipeline {
         additionalBuildArgs = '--build-arg version=${VERSION}'
       }
       steps {
-        def customImage = docker.build(go-pipeline-design:0.0.1-${env.BUILD_ID}", "-f Dockerfile .")
-        customImage.push()
+        sh 'docker build .'
       }
     }
     stage('Test') {
