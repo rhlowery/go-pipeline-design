@@ -21,7 +21,7 @@ COPY . /go/src/project/
 RUN go build -o bin/project
 
 # This results in a single layer image
-FROM build as scratch
+FROM build AS scratch
 COPY --from=build /go/src/project/bin/project /bin/project
 ENTRYPOINT ["/bin/project"]
 CMD ["version"]
