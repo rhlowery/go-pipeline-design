@@ -1,5 +1,8 @@
 pipeline {
   agent none
+  environment {
+    VERSION = '0.0.1'
+  }
   stages {
     stage('Build') {
       agent {
@@ -46,9 +49,6 @@ pipeline {
         sh 'make test-coverage'
       }
     }
-  }
-  environment {
-    VERSION = '0.0.1'
   }
   post {
     always {
