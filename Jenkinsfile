@@ -22,7 +22,7 @@ pipeline {
     }
     stage('Package') {
       agent {
-        dockerfle {
+        dockerfile {
           filename 'Dockerfile'
         }
       }
