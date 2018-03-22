@@ -21,7 +21,13 @@ pipeline {
         }
       }
     }
-    stage('Testing') {
+    stage('Package') {
+      steps {
+        sh 'apk add --no-cache docker'
+        sh 'docker build .'
+      }
+    }
+    stage('Test') {
       steps {
         sh 'make test'
       }
