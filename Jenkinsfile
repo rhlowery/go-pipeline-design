@@ -32,8 +32,7 @@ pipeline {
         additionalBuildArgs = '--build-arg version=${VERSION}'
       }
       steps {
-        def customImage = docker.build("go-pipeline-design:0.0.1", "-f Dockerfile .")
-        customImage.push()
+        sh 'docker build .'
       }
     }
     stage('Test') {
