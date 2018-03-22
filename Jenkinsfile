@@ -32,7 +32,7 @@ pipeline {
         additionalBuildArgs = '--build-arg version=${VERSION}'
       }
       steps {
-        sh 'docker build .'
+        echo "${VERSION}"
       }
     }
     stage('Test') {
