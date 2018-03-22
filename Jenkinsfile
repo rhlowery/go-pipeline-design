@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      args '-p 80:7180'
-      image 'golang-1.10.0-alpine3.7'
+      image 'golang:1.10.0-alpine3.7'
+      args '-p 7180:80'
     }
     
   }
@@ -13,6 +13,8 @@ pipeline {
         sh 'apk add --no-cache git'
         sh 'go get github.com/golang/dep/cmd/dep'
         sh 'go get -u golang.org/x/lint/golint'
+        sh 'make clean'
+        sh 'make'
       }
     }
   }
