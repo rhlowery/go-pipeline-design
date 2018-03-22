@@ -9,8 +9,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''make clean
-make'''
+        sh 'make clean'
+        sh 'make'
       }
     }
   }
