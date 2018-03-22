@@ -8,17 +8,13 @@ pipeline {
   }
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'apk add --no-cache make'
-            sh 'apk add --no-cache git'
-            sh 'go get github.com/golang/dep/cmd/dep'
-            sh 'go get -u golang.org/x/lint/golint'
-            sh 'make clean'
-            sh 'make'
-          }
-        }
+      steps {
+        sh 'apk add --no-cache make'
+        sh 'apk add --no-cache git'
+        sh 'go get github.com/golang/dep/cmd/dep'
+        sh 'go get -u golang.org/x/lint/golint'
+        sh 'make clean'
+        sh 'make'
       }
     }
     stage('Package') {
