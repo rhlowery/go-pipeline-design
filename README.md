@@ -3,8 +3,9 @@
 ## Pre-requisites
 
 - Install golang
-- Install dep
 - Install make
+- Install dep
+- Install golint
 
 ## Pull the source
 
