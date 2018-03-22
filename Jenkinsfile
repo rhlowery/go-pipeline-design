@@ -26,7 +26,9 @@ pipeline {
     stage('Test') {
       steps {
         sh 'make test'
-        sh 'make test-default'
+        sh 'mkdir test'
+        sh 'make test-xml'
+        sh 'make test-coverage'
       }
     }
   }
