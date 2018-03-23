@@ -3,7 +3,7 @@ FROM golang:1.10-alpine3.7 AS build
 # Install tools required to build the project
 # We need to run 'docker build --no-cache .` to update those dependencies
 
-RUN apk add --no-cache git
+RUN sudo apk add --no-cache git
 RUN go get github.com/golang/dep/cmd/dep
 RUN go get -u golang.org/x/lint/golint
 
@@ -19,9 +19,10 @@ RUN dep ensure -vendor-only
 # This layer is rebuilt whenever a file has changed in the project directory
 COPY . /go/src/project/
 RUN go build -o bin/project
+FROM go-pipeline-design-scratch AS build
 
 # This results in a single layer image
-FROM build AS scratch
+FROM golang:1.10.0-alpine3.7 AS scratch
 COPY --from=build /go/src/project/bin/project /bin/project
 ENTRYPOINT ["/bin/project"]
 CMD ["version"]
