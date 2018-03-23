@@ -6,7 +6,7 @@ LABEL maintainer "Richard11.Lowery@nttdata.com"
 # Install tools required to build the project
 # We need to run 'docker build --no-cache .` to update those dependencies
 
-RUN sudo apk add --no-cache git
+RUN apk add --no-cache git
 RUN go get github.com/golang/dep/cmd/dep
 RUN go get -u golang.org/x/lint/golint
 
