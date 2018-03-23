@@ -1,5 +1,8 @@
 FROM golang:1.10-alpine3.7 AS build
 
+# Setting the Maintainer
+LABEL maintainer "Richard11.Lowery@nttdata.com"
+
 # Install tools required to build the project
 # We need to run 'docker build --no-cache .` to update those dependencies
 

@@ -23,25 +23,25 @@ pipeline {
         sh 'make'
       }
     }
-//    stage('Package') {
-//      agent {
-//        dockerfile {
-//          filename 'Dockerfile'
-//        }
-//      }
-//      environment {
-//        dir = 'build'
-//        label = 'go-pipeline-design'
-//        additionalBuildArgs = '--build-arg version=${VERSION}'
-//      }
-//      steps {
-//        echo "${VERSION}"
-//      }
-//    }
+    stage('Package') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile'
+        }
+      }
+      environment {
+        dir = 'build'
+        label = 'rhlowery/go-pipeline-design'
+        additionalBuildArgs = '--build-arg version=${VERSION}'
+      }
+      steps {
+        echo "${VERSION}"
+      }
+    }
     stage('Test') {
       agent {
         docker {
-          image 'rhlowery/go-pipeline-design-scratch'
+          image 'rhlowery/go-pipeline-design'
         }
         
       }
