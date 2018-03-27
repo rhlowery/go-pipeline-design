@@ -22,9 +22,10 @@ RUN dep ensure -vendor-only
 # This layer is rebuilt whenever a file has changed in the project directory
 COPY . /go/src/project/
 RUN go build -o bin/project
+FROM go-pipeline-design-scratch AS build
 
 # This results in a single layer image
-FROM build AS scratch
+FROM golang:1.10.0-alpine3.7 AS scratch
 COPY --from=build /go/src/project/bin/project /bin/project
 ENTRYPOINT ["/bin/project"]
 CMD ["version"]
