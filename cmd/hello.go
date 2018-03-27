@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"project/hello"
+	"go-pipeline-design/hello"
 )
 
 func init() {

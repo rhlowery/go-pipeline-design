@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"project/cmd"
+	"go-pipeline-design/cmd"
 )
 
 func main() {
