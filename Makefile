@@ -13,6 +13,7 @@ export GOPATH
 GO      = go
 GODOC   = godoc
 GOFMT   = gofmt
+GODEP   = dep
 TIMEOUT = 15
 V = 0
 Q = $(if $(filter 1,$V),,@)
