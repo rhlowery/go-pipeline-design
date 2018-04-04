@@ -19,17 +19,33 @@ V = 0
 Q = $(if $(filter 1,$V),,@)
 M = $(shell printf "\033[34;1m▶\033[0m")
 
+WHAT    := hello
+
 .PHONY: all
-all: fmt lint vendor | $(BASE) ; $(info $(M) building executable…) @ ## Build program binary
-	$Q cd $(BASE) && $(GO) build \
-		-tags release \
-		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE)' \
-		-o bin/$(PACKAGE) main.go
+all: fmt lint vendor | $(BASE) ; $(info $(M) building executables...) @ ## Build program binaries;
+	$Q for target in $(WHAT) ; do \
+		$(info $(M) GOPATH=$(GOPATH)) \
+		cd $(BASE) && $(GO) build \
+			-tags release \
+			-ldflags '-X $(PACKAGE)cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE)' \
+			-o bin/$$target ./src/cmd/$$target/main.go ; \
+        done
 
 $(BASE): ; $(info $(M) setting GOPATH…)
 	@mkdir -p $(dir $@)
 	@ln -sf $(CURDIR) $@
 
+
+#all: fmt lint vendor | $(BASE) ; $(info $(M) building executable…) @ ## Build program binary
+#	$Q cd $(BASE) && $(GO) build \
+#		-tags release \
+#		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE)' \
+#		-o bin/$(PACKAGE) main.go
+#
+#$(BASE): ; $(info $(M) setting GOPATH…)
+#	@mkdir -p $(dir $@)
+#	@ln -sf $(CURDIR) $@
+#
 # Tools
 
 $(BIN):
