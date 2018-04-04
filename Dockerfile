@@ -9,7 +9,8 @@ LABEL maintainer "Richard11.Lowery@nttdata.com"
 RUN apk add --no-cache git
 RUN apk add --no-cache make
 RUN go get github.com/golang/dep/cmd/dep
-RUN go get -u github.com/golang/lint/golint
+RUN go get -u golang.org/x/lint/golint
+RUN go get -u github.com/DATA-DOG/godog/...
 
 # Gopkg.toml and Gopkg.lock lists project dependencies
 # These layers are only re-build when Gopkg files are updated
