@@ -21,6 +21,7 @@ pipeline {
         sh 'apk add --no-cache git'
         sh 'go get github.com/golang/dep/cmd/dep'
         sh 'go get -u golang.org/x/lint/golint'
+        sh 'go get -u github.com/DATA-DOG/godog/...'
         sh 'make clean'
         sh 'make'
       }
