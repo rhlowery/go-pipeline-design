@@ -24,7 +24,12 @@
 #   go-tests = true
 #   unused-packages = true
 
+required = ["github.com/DATA-DOG/godog/cmd/godog"]
 
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  name = "github.com/DATA-DOG/godog"
+  version = "0.7.6"

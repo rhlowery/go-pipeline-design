@@ -14,6 +14,8 @@ GO      = go
 GODOC   = godoc
 GOFMT   = gofmt
 GODEP   = dep
+GODOG   = godog
+
 TIMEOUT = 15
 V = 0
 Q = $(if $(filter 1,$V),,@)
@@ -36,16 +38,6 @@ $(BASE): ; $(info $(M) setting GOPATH…)
 	@ln -sf $(CURDIR) $@
 
 
-#all: fmt lint vendor | $(BASE) ; $(info $(M) building executable…) @ ## Build program binary
-#	$Q cd $(BASE) && $(GO) build \
-#		-tags release \
-#		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE)' \
-#		-o bin/$(PACKAGE) main.go
-#
-#$(BASE): ; $(info $(M) setting GOPATH…)
-#	@mkdir -p $(dir $@)
-#	@ln -sf $(CURDIR) $@
-#
 # Tools
 
 $(BIN):
@@ -72,6 +64,9 @@ $(BIN)/gocov-xml: REPOSITORY=github.com/AlekSi/gocov-xml
 
 GO2XUNIT = $(BIN)/go2xunit
 $(BIN)/go2xunit: REPOSITORY=github.com/tebeka/go2xunit
+
+GODOG = $(BIN)/godog
+$(BIN)/godog: REPOSITORY=github.com/DATA-DOG/godog/...
 
 # Tests
 
@@ -120,6 +115,10 @@ fmt: ; $(info $(M) running gofmt…) @ ## Run gofmt on all source files
 	@ret=0 && for d in $$($(GO) list -f '{{.Dir}}' ./... | grep -v /vendor/); do \
 		$(GOFMT) -l -w $$d/*.go || ret=$$? ; \
 	 done ; exit $$ret
+
+.PHONY: godog
+godog: vendor | $(BASE) $(GODOG) ; $(info $(M) running godog…) @ ## Run godog
+	cd $(GOPATH)/src/$(PACKAGE) && $(GODOG) 
 
 # Dependency management
 
