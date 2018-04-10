@@ -1,4 +1,7 @@
 pipeline {
+  agent {
+    none
+  }
 
   environment {
     VERSION = '0.0.1'
@@ -12,8 +15,7 @@ pipeline {
     stage('Build') {
       agent {
         docker {
-          image 'golang:1.10-1-alpine3.7'
-          args '-p 7180:80'
+          image 'golang:1.10.1-alpine3.7'
         }
       }
       steps {
@@ -42,6 +44,11 @@ pipeline {
       }
     }
     stage('Test') {
+      agent {
+        docker {
+          image 'golang:1-10.1-alpine3.7'
+        }
+      }
       steps {
         sh 'make test'
         sh 'mkdir test'
