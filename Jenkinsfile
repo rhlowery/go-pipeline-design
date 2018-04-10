@@ -1,10 +1,4 @@
 pipeline {
-  agent {
-    docker {
-      image 'golang:1.10.1-alpine3.7'
-      args '-p 7180:80'
-    }
-  }
 
   environment {
     VERSION = '0.0.1'
@@ -16,6 +10,12 @@ pipeline {
 
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'golang:1.10-1-alpine3.7'
+          args '-p 7180:80'
+        }
+      }
       steps {
         sh 'apk add --no-cache make'
         sh 'apk add --no-cache git'
