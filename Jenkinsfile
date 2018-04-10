@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    none
-  }
+  agent none
 
   environment {
     VERSION = '0.0.1'
